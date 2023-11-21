@@ -2,7 +2,6 @@ package com.recuperatorio.parcialRecuperatorio.services;
 
 import com.recuperatorio.parcialRecuperatorio.models.DTOS.TrackDTO;
 import com.recuperatorio.parcialRecuperatorio.models.Track;
-import com.recuperatorio.parcialRecuperatorio.repositories.IAlbumRepository;
 import com.recuperatorio.parcialRecuperatorio.repositories.ITrackRepository;
 import com.recuperatorio.parcialRecuperatorio.services.mappers.TrackDTOToTrack;
 import org.springframework.http.HttpStatus;
@@ -13,31 +12,35 @@ import org.springframework.web.server.ResponseStatusException;
 
 
 import java.util.List;
-import java.util.Optional;
+
 @Service
-public class TrackServiceImpl implements ITrackServices{
+public class TrackServiceImpl implements ITrackService {
 
     private ITrackRepository repositoryTrack;
 
     private TrackDTOToTrack mapperdto;
 
     private IGenreService generoService;
-    private IAlbumRepository albumRepository;
+    private IAlbumService albumService;
 
-
+    public TrackServiceImpl(ITrackRepository repositoryTrack, TrackDTOToTrack mapperdto, IGenreService generoService, IAlbumService albumService) {
+        this.repositoryTrack = repositoryTrack;
+        this.mapperdto = mapperdto;
+        this.generoService = generoService;
+        this.albumService = albumService;
+    }
 
     @Override
     public Track create(TrackDTO track) {
 
         Track acrear = mapperdto.convertDtoToTrack(track);
 
-        Optional<Album> albumB = albumRepository.findById(track.getAlbum());
-        Album album = albumB.get();
-        Optional<Genre> genero = generoService.findById(track.getGenreId());
+        Album album = albumService.findById(track.getAlbum());
+        Genre genero = generoService.findById(track.getGenreId());
 
 
         acrear.setAlbumId(album);
-        acrear.setGenreId(genero.get());
+        acrear.setGenreId(genero);
 
 
         Track nueva = repositoryTrack.save(acrear);
@@ -52,33 +55,37 @@ public class TrackServiceImpl implements ITrackServices{
 
     @Override
     public Track update(TrackDTO track) {
-//        Playlist playlistOriginal = this.findById(playlist.getId());
-//        playlistOriginal.update(playlist);
-//        this.playlistRepository.save(playlistOriginal);
+
         Track trackOriginal = findById(track.getId());
-        Optional<Album> albumB = albumRepository.findById(track.getAlbum());
-        Album album = albumB.get();
+        // compruebo si existe el album
+        Album album = albumService.findById(track.getAlbum());
+        // compruebo si existe el genero
+        Genre genero = generoService.findById(track.getGenreId());
+        trackOriginal.update(track, album, genero);
+        repositoryTrack.save(trackOriginal);
 
-        Optional<Genre> genero = generoService.findById(track.getGenreId());
-
-
-        return null;
+        return trackOriginal;
     }
-    //(String name, Album album, MediaType mediaType, Genre genre, String composer, int milliseconds, Integer bytes, float unitPrice)
 
     @Override
     public Track delete(int id) {
-        return null;
+        Track track = this.findById(id);
+
+        this.repositoryTrack.delete(track);
+
+        return track;
+
     }
 
     @Override
     public List<Track> getAll() {
-        return null;
+        List<Track> tracks = repositoryTrack.findAll();
+        return tracks;
     }
 
     @Override
     public Track findById(int id) {
-        Track track = repositoryTrack.findById(id).orElseThrow(() -> new IllegalArgumentException("Playlist no encontrada"));
+        Track track = repositoryTrack.findById(id).orElseThrow(() -> new IllegalArgumentException("Track no encontrado"));
         return track;
 
     }

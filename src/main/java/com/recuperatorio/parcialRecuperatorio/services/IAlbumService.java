@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-@Service
 public interface IAlbumService {
 
     Album create(AlbumDTO album );
@@ -15,6 +14,6 @@ public interface IAlbumService {
     Album delete(AlbumDTO album);
     Album delete(int id);
     List<Album> getAll();
-    Optional<Album> findById(int id);
+    Album findById(int id);
 
 }

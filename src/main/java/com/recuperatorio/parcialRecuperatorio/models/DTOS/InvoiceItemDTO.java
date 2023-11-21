@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class InvoiceItemsDTO {
+public class InvoiceItemDTO {
+    private int id;
     private int invoiceId;
     private int trackId;
     private double unitPrice;

@@ -6,13 +6,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-@Service
 public interface ICustomerService {
     Customer create(CustomerDTO customer);
     Customer update(CustomerDTO customer);
-    Customer delete(CustomerDTO customer);
-    Customer delete(Long id);
+    Customer delete(int id);
     List<Customer> getAll();
-    Optional<Customer> findById(Long id);
+    Customer findById(int id);
 
 }

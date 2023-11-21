@@ -1,5 +1,6 @@
 package com.recuperatorio.parcialRecuperatorio.models;
 
+import com.recuperatorio.parcialRecuperatorio.models.DTOS.InvoiceItemDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,5 +29,10 @@ public class InvoiceItem {
     @ManyToOne
     @JoinColumn(name = "trackid")
     private Track track;
-
+    public void update (InvoiceItemDTO invoiceItem, Invoice invoice, Track track){
+        this.unitPrice = invoiceItem.getUnitPrice();
+        this.quantity = invoiceItem.getQuantity();
+        this.invoice = invoice;
+        this.track = track;
+    }
 }

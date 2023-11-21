@@ -1,6 +1,7 @@
 package com.recuperatorio.parcialRecuperatorio.services;
 
 import com.recuperatorio.parcialRecuperatorio.models.DTOS.PlaylistDTO;
+import com.recuperatorio.parcialRecuperatorio.models.DTOS.PlaylistTrackDTO;
 import com.recuperatorio.parcialRecuperatorio.models.Playlist;
 import org.springframework.stereotype.Service;
 
@@ -14,4 +15,5 @@ public interface IPlaylistService {
     Playlist delete(int id);
     List<Playlist> getAll();
     Playlist findById(int id);
+    Playlist addTrack(PlaylistTrackDTO playlistTrackDTO);
 }

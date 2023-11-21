@@ -1,5 +1,6 @@
 package com.recuperatorio.parcialRecuperatorio.models;
 
+import com.recuperatorio.parcialRecuperatorio.models.DTOS.TrackDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -57,15 +58,16 @@ public class Track {
 
 
 
-    public void update(String name, Album album, int mediaType, Genre genre, String composer, int milliseconds, Integer bytes, float unitPrice) {
-        this.name = name;
+    public void update(TrackDTO trackdto, Album album, Genre genre) {
+        this.name = trackdto.getName();
         this.albumId = album;
-        this.mediaTypeId = mediaType;
+        this.mediaTypeId = trackdto.getMediaType();
         this.genreId = genre;
-        this.composer = composer;
-        this.miliseconds = milliseconds;
-        this.bytes = bytes;
-        this.unitPrice = unitPrice;
+        this.composer = trackdto.getComposer();
+        this.miliseconds = trackdto.getMili();
+        this.bytes = trackdto.getBytes();
+        this.unitPrice = trackdto.getUnitPrice();
+
     }
 
 }

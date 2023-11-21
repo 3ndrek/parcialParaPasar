@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InvoiceDTO {
+    private int invoiceId;
     private int customerId;
     private LocalDateTime invoiceDate;
     private String billingAddress;

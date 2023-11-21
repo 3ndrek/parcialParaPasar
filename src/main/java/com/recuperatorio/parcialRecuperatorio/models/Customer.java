@@ -1,5 +1,6 @@
 package com.recuperatorio.parcialRecuperatorio.models;
 
+import com.recuperatorio.parcialRecuperatorio.models.DTOS.CustomerDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +15,7 @@ public class Customer {
     @Column(name = "customerid")
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
-    private Long customerId;
+    private int customerId;
 
     @Column(name = "firstname")
     private String firstName;
@@ -51,7 +52,20 @@ public class Customer {
 
     @Column(name = "supportrepid")
     private String supportRepid;
-
+    public void update(CustomerDTO customer) {
+        this.firstName = customer.getFirstName();
+        this.lastName = customer.getLastName();
+        this.company = customer.getCompany();
+        this.address = customer.getAddress();
+        this.city = customer.getCity();
+        this.state = customer.getState();
+        this.country = customer.getCountry();
+        this.postalCode = customer.getPostalCode();
+        this.phone = customer.getPhone();
+        this.fax = customer.getFax();
+        this.email = customer.getEmail();
+        this.supportRepid = customer.getSupportRepid();
+    }
 
 }
 

@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "playlists")
 @Entity
-public class Playlist {
+public class Playlist  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="playlistid")
@@ -34,6 +34,9 @@ public class Playlist {
     }
     public Playlist(PlaylistDTO dto){
         this.name = dto.getName();
+    }
+    public void addTrack(Track track){
+        this.tracks.add(track);
     }
 
 }

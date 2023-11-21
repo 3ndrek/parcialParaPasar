@@ -1,6 +1,7 @@
 package com.recuperatorio.parcialRecuperatorio.models;
 
 
+import com.recuperatorio.parcialRecuperatorio.models.DTOS.InvoiceDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -43,4 +44,14 @@ public class Invoice {
 
     @Column(name="total")
     private double total;
+
+    public void update(InvoiceDTO invoice){
+        this.billingAddress = invoice.getBillingAddress();
+        this.billingCity = invoice.getBillingCity();
+        this.billingCountry = invoice.getBillingCountry();
+        this.billingPostalCode = invoice.getBillingPostalCode();
+        this.billingState = invoice.getBillingState();
+        this.invoiceDate = invoice.getInvoiceDate();
+        this.total = invoice.getTotal();
+    }
 }

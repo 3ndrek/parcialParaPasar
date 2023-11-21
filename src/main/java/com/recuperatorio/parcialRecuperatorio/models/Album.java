@@ -1,5 +1,6 @@
 package com.recuperatorio.parcialRecuperatorio.models;
 
+import com.recuperatorio.parcialRecuperatorio.models.DTOS.AlbumDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,7 +26,10 @@ public class Album {
     @ManyToOne
     private Artist artistId;
 
-
+    public void update(AlbumDTO album, Artist artist) {
+        this.title = album.getTitle();
+        this.artistId = artist;
+    }
 
 
 }

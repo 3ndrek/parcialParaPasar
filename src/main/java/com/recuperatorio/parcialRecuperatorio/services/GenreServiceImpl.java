@@ -61,7 +61,7 @@ public class GenreServiceImpl implements IGenreService{
     }
 
     @Override
-    public Optional<Genre> findById(int id){
-        return genreRepository.findById(id);
+    public Genre findById(int id){
+        return genreRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Genre no encontrado"));
     }
 }

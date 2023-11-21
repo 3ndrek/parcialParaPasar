@@ -18,5 +18,5 @@ public interface IGenreService {
 
     List<Genre> getAll();
 
-    Optional<Genre> findById(int id);
+    Genre findById(int id);
 }
