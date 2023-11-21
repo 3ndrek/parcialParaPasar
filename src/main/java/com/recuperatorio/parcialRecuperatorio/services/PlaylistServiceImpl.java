@@ -78,4 +78,14 @@ public class PlaylistServiceImpl implements IPlaylistService{
         this.playlistRepository.save(playlist);
         return playlist;
     }
+    @Override
+    public Playlist deleteTrack(PlaylistTrackDTO  playlistTrackDTO){
+        Playlist playlist = this.findById(playlistTrackDTO.getIdPlaylist());
+        Track track = this.trackService.findById(playlistTrackDTO.getIdTrack());
+        playlist.deleteTrack(track);
+        this.playlistRepository.save(playlist);
+
+        return playlist;
+
+    }
 }

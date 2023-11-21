@@ -16,4 +16,5 @@ public interface IPlaylistService {
     List<Playlist> getAll();
     Playlist findById(int id);
     Playlist addTrack(PlaylistTrackDTO playlistTrackDTO);
+    Playlist deleteTrack(PlaylistTrackDTO playlistTrackDTO);
 }

@@ -38,5 +38,8 @@ public class Playlist  {
     public void addTrack(Track track){
         this.tracks.add(track);
     }
-
+    
+    public void deleteTrack(Track track){
+        tracks.removeIf(t -> t.getTrackId() == track.getTrackId());
+    }
 }

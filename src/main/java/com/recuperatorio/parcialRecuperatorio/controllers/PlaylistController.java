@@ -90,4 +90,17 @@ public class PlaylistController {
         return ResponseEntity.ok(playlist);
     }
 
+    @PostMapping("/deleteTrack")
+    public ResponseEntity<Object> deleteTrack(@RequestBody PlaylistTrackDTO playlistTrackDTO){
+        Playlist playlist;
+
+        try{
+            playlist = playlistService.deleteTrack(playlistTrackDTO);
+        }catch(Exception ex){
+            return ResponseEntity.badRequest().body("Hubo un problema: " + ex.getMessage());
+        }
+        return ResponseEntity.ok(playlist);
+
+    }
+
 }
