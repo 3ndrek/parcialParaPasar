@@ -12,5 +12,6 @@ public interface ICustomerService {
     Customer delete(int id);
     List<Customer> getAll();
     Customer findById(int id);
+    void validarCustomer(CustomerDTO customer);
 
 }

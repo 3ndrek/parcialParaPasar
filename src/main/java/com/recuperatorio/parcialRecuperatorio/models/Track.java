@@ -6,7 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.awt.*;
+import java.util.List;
+
 
 @Data
 @Entity
@@ -44,6 +45,7 @@ public class Track {
 
     @Column(name="unitprice")
     private double unitPrice;
+
 
     public Track(String name, Album albumId, Integer mediatype, Genre genreId, String composer, int miliseconds, int bytes, double unitPrice) {
         this.name = name;

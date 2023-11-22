@@ -29,7 +29,7 @@ public class AlbumServiceImpl implements IAlbumService {
         Artist artista = artistService.findById(album.getArtist());
         nuevoAlbum.update(album, artista);
         albumRepository.save(nuevoAlbum);
-        return null;
+        return nuevoAlbum;
     }
 
     @Override

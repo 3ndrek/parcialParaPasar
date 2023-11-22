@@ -2,6 +2,7 @@ package com.recuperatorio.parcialRecuperatorio.services;
 
 import com.recuperatorio.parcialRecuperatorio.models.DTOS.TrackDTO;
 import com.recuperatorio.parcialRecuperatorio.models.Track;
+import com.recuperatorio.parcialRecuperatorio.repositories.IPlaylistTrackRepository;
 import com.recuperatorio.parcialRecuperatorio.repositories.ITrackRepository;
 import com.recuperatorio.parcialRecuperatorio.services.mappers.TrackDTOToTrack;
 import org.springframework.http.HttpStatus;
@@ -19,11 +20,12 @@ public class TrackServiceImpl implements ITrackService {
     private ITrackRepository repositoryTrack;
 
     private TrackDTOToTrack mapperdto;
-
+    private IPlaylistTrackRepository playlistTrackRepository;
     private IGenreService generoService;
     private IAlbumService albumService;
 
-    public TrackServiceImpl(ITrackRepository repositoryTrack, TrackDTOToTrack mapperdto, IGenreService generoService, IAlbumService albumService) {
+    public TrackServiceImpl(ITrackRepository repositoryTrack, TrackDTOToTrack mapperdto, IGenreService generoService, IAlbumService albumService, IPlaylistTrackRepository playlistTrackRepository) {
+        this.playlistTrackRepository = playlistTrackRepository;
         this.repositoryTrack = repositoryTrack;
         this.mapperdto = mapperdto;
         this.generoService = generoService;
@@ -73,6 +75,7 @@ public class TrackServiceImpl implements ITrackService {
 
         this.repositoryTrack.delete(track);
 
+        this.playlistTrackRepository.deleteByTrackId(id);
         return track;
 
     }

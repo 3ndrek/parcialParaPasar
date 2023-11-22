@@ -4,6 +4,7 @@ import com.recuperatorio.parcialRecuperatorio.models.DTOS.TrackDTO;
 import com.recuperatorio.parcialRecuperatorio.models.Track;
 import com.recuperatorio.parcialRecuperatorio.services.ITrackService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,10 +14,8 @@ import java.util.List;
 @RequestMapping("/api/track")
 @RequiredArgsConstructor
 public class TrackController {
+    @Autowired
     private ITrackService trackService;
-    public TrackController(ITrackService trackService ) {
-        this.trackService = trackService;
-    }
 
     @GetMapping()
     public ResponseEntity<Object> getAll(){

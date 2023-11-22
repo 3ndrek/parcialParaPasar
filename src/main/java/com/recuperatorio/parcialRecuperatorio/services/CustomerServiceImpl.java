@@ -14,6 +14,7 @@ public class CustomerServiceImpl implements ICustomerService{
     public CustomerServiceImpl(ICustomerRepository customerRepository){
         this.customerRepository = customerRepository;
     }
+    @Override
     public void validarCustomer(CustomerDTO customer){
         if (customer.getFirstName().length()>40){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Longitud del nombre es mayor a 40 caracteres");
