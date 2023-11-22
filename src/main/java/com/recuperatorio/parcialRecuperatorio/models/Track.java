@@ -6,8 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 
 @Data
 @Entity
@@ -25,14 +23,14 @@ public class Track {
 
     @ManyToOne
     @JoinColumn(name = "albumid")
-    private Album albumId;
+    private Album album;
 
     @Column(name = "mediatypeid")
     private Integer mediaTypeId;
 
     @ManyToOne
     @JoinColumn(name = "genreid")
-    private Genre genreId;
+    private Genre genre;
 
     @Column(name="composer")
     private String composer;
@@ -47,11 +45,11 @@ public class Track {
     private double unitPrice;
 
 
-    public Track(String name, Album albumId, Integer mediatype, Genre genreId, String composer, int miliseconds, int bytes, double unitPrice) {
+    public Track(String name, Album album, Integer mediatype, Genre genre, String composer, int miliseconds, int bytes, double unitPrice) {
         this.name = name;
-        this.albumId = albumId;
+        this.album = album;
         this.mediaTypeId = mediaTypeId;
-        this.genreId = genreId;
+        this.genre = genre;
         this.composer = composer;
         this.miliseconds = miliseconds;
         this.bytes = bytes;
@@ -62,9 +60,9 @@ public class Track {
 
     public void update(TrackDTO trackdto, Album album, Genre genre) {
         this.name = trackdto.getName();
-        this.albumId = album;
+        this.album = album;
         this.mediaTypeId = trackdto.getMediaType();
-        this.genreId = genre;
+        this.genre = genre;
         this.composer = trackdto.getComposer();
         this.miliseconds = trackdto.getMili();
         this.bytes = trackdto.getBytes();

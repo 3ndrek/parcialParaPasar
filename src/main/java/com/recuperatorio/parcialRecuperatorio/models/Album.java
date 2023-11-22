@@ -24,11 +24,11 @@ public class Album {
 
     @JoinColumn(name = "artistid")
     @ManyToOne
-    private Artist artistId;
+    private Artist artist;
 
     public void update(AlbumDTO album, Artist artist) {
         this.title = album.getTitle();
-        this.artistId = artist;
+        this.artist = artist;
     }
 
 

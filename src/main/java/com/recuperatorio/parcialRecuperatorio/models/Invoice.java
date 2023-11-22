@@ -22,7 +22,7 @@ public class Invoice {
 
     @ManyToOne
     @JoinColumn(name = "customerid")
-    private Customer customerId;
+    private Customer customer;
 
     @Column(name="invoicedate")
     private LocalDateTime invoiceDate;

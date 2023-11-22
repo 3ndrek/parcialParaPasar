@@ -41,8 +41,8 @@ public class TrackServiceImpl implements ITrackService {
         Genre genero = generoService.findById(track.getGenreId());
 
 
-        acrear.setAlbumId(album);
-        acrear.setGenreId(genero);
+        acrear.setAlbum(album);
+        acrear.setGenre(genero);
 
 
         Track nueva = repositoryTrack.save(acrear);
