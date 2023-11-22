@@ -61,4 +61,10 @@ public class ArtistServiceImpl implements IArtistService {
         return this.artistRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Playlist no encontrada") );
 
     }
+
+    @Override
+    public boolean existeArtista(int id) {
+            Optional<Artist> artist = this.artistRepository.findById(id);
+            return artist.isPresent();
+    }
 }

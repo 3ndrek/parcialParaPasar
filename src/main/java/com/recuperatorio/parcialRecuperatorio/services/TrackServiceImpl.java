@@ -1,10 +1,13 @@
 package com.recuperatorio.parcialRecuperatorio.services;
 
 import com.recuperatorio.parcialRecuperatorio.models.DTOS.TrackDTO;
+import com.recuperatorio.parcialRecuperatorio.models.DTOS.TrackFiltradoDTO;
 import com.recuperatorio.parcialRecuperatorio.models.Track;
 import com.recuperatorio.parcialRecuperatorio.repositories.IPlaylistTrackRepository;
 import com.recuperatorio.parcialRecuperatorio.repositories.ITrackRepository;
 import com.recuperatorio.parcialRecuperatorio.services.mappers.TrackDTOToTrack;
+import com.recuperatorio.parcialRecuperatorio.services.mappers.TrackFiltradoADTOFiltrado;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import com.recuperatorio.parcialRecuperatorio.models.Album;
@@ -12,6 +15,8 @@ import com.recuperatorio.parcialRecuperatorio.models.Genre;
 import org.springframework.web.server.ResponseStatusException;
 
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -24,12 +29,17 @@ public class TrackServiceImpl implements ITrackService {
     private IGenreService generoService;
     private IAlbumService albumService;
 
-    public TrackServiceImpl(ITrackRepository repositoryTrack, TrackDTOToTrack mapperdto, IGenreService generoService, IAlbumService albumService, IPlaylistTrackRepository playlistTrackRepository) {
-        this.playlistTrackRepository = playlistTrackRepository;
+    private IArtistService servicioArtistas;
+@Autowired
+    private TrackFiltradoADTOFiltrado dtoFiltradoMapper;
+
+    public TrackServiceImpl(ITrackRepository repositoryTrack, TrackDTOToTrack mapperdto, IPlaylistTrackRepository playlistTrackRepository, IGenreService generoService, IAlbumService albumService, IArtistService servicioArtistas) {
         this.repositoryTrack = repositoryTrack;
         this.mapperdto = mapperdto;
+        this.playlistTrackRepository = playlistTrackRepository;
         this.generoService = generoService;
         this.albumService = albumService;
+        this.servicioArtistas = servicioArtistas;
     }
 
     @Override
@@ -91,5 +101,31 @@ public class TrackServiceImpl implements ITrackService {
         Track track = repositoryTrack.findById(id).orElseThrow(() -> new IllegalArgumentException("Track no encontrado"));
         return track;
 
+    }
+
+    @Override
+    public List<TrackFiltradoDTO> getFiltrados(int id) {
+
+
+        if (!this.servicioArtistas.existeArtista(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no existe el artista");
+        } else {
+            List<Track> tracks = this.repositoryTrack.findByAlbum_Artist_ArtistId(id);
+
+            if (tracks.isEmpty()) {
+                throw new ResponseStatusException(HttpStatus.NO_CONTENT, "no existen canciones de ese genero para ese artista");
+            } else {
+                List<TrackFiltradoDTO> trackFiltradoDTOS = new ArrayList();
+                Iterator var5 = tracks.iterator();
+
+                while (var5.hasNext()) {
+                    Track track = (Track) var5.next();
+                    TrackFiltradoDTO t = this.dtoFiltradoMapper.transcribir(track);
+                    trackFiltradoDTOS.add(t);
+                }
+
+                return trackFiltradoDTOS;
+            }
+        }
     }
 }

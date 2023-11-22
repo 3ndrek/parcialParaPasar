@@ -13,4 +13,5 @@ public interface IArtistService {
     Artist delete(int id);
     List<Artist> getAll();
     Artist findById(int id);
+    boolean existeArtista(int id);
 }

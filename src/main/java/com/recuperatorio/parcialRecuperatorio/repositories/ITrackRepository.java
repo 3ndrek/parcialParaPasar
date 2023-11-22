@@ -7,10 +7,17 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ITrackRepository extends JpaRepository<Track,Integer> {
     // borrar todos las filas de playlist_tack con un id track
     @Modifying
     @Query(value = "DELETE FROM playlist_track WHERE trackid =:id", nativeQuery = true)
     void deletePlaylistTrack(@Param("id") String id);
+
+
+    List<Track> findByAlbum_Artist_ArtistId(int id);
+
+
 }

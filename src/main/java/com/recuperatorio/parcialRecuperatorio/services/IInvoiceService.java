@@ -1,5 +1,6 @@
 package com.recuperatorio.parcialRecuperatorio.services;
 
+import com.recuperatorio.parcialRecuperatorio.models.DTOS.CrearInvoiceDTO;
 import com.recuperatorio.parcialRecuperatorio.models.DTOS.InvoiceDTO;
 import com.recuperatorio.parcialRecuperatorio.models.Invoice;
 
@@ -10,4 +11,7 @@ public interface IInvoiceService {
     Invoice update(InvoiceDTO invoice);
     Invoice delete(int id);
     List<Invoice> getAll();
-    Invoice findById(int id);}
+    Invoice findById(int id);;
+
+    Invoice CrearConDatos(CrearInvoiceDTO invoiceDTO);
+}

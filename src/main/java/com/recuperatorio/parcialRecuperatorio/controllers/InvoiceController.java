@@ -1,5 +1,6 @@
 package com.recuperatorio.parcialRecuperatorio.controllers;
 
+import com.recuperatorio.parcialRecuperatorio.models.DTOS.CrearInvoiceDTO;
 import com.recuperatorio.parcialRecuperatorio.models.DTOS.InvoiceDTO;
 import com.recuperatorio.parcialRecuperatorio.models.Invoice;
 import com.recuperatorio.parcialRecuperatorio.services.IInvoiceService;
@@ -68,5 +69,17 @@ public class InvoiceController {
             return ResponseEntity.badRequest().body("Hubo un problema al eliminar la factura" + ex.getMessage());
         }
         return ResponseEntity.ok("Factura eliminada");
+    }
+
+
+    @PostMapping("/crearInvoice")
+    public ResponseEntity<Object> create(@RequestBody CrearInvoiceDTO invoiceDTO){
+        Invoice invoice;
+        try{
+            invoice = invoiceService.CrearConDatos(invoiceDTO);
+        }catch(Exception ex){
+            return ResponseEntity.badRequest().body("Hubo un problema al crear la factura" + ex.getMessage());
+        }
+        return ResponseEntity.ok(invoice);
     }
 }

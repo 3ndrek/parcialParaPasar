@@ -1,12 +1,15 @@
 package com.recuperatorio.parcialRecuperatorio.controllers;
 
 import com.recuperatorio.parcialRecuperatorio.models.DTOS.TrackDTO;
+import com.recuperatorio.parcialRecuperatorio.models.DTOS.TrackFiltradoDTO;
 import com.recuperatorio.parcialRecuperatorio.models.Track;
 import com.recuperatorio.parcialRecuperatorio.services.ITrackService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -71,4 +74,25 @@ public class TrackController {
         }
         return ResponseEntity.ok("Se eliminó el Invoice Item con id: " + id);
     }
+
+@GetMapping("/byArtist")
+    public ResponseEntity<Object> getFiltrados(@RequestParam("artistId") int idArtista)
+    {
+        List tracks;
+        try {
+            tracks = trackService.getFiltrados(idArtista);
+        } catch (ResponseStatusException var5) {
+            if (var5.getStatusCode() == HttpStatus.NOT_FOUND) {
+                return new ResponseEntity(var5.getMessage(), HttpStatus.NOT_FOUND);
+            }
+
+            return new ResponseEntity(var5.getMessage(), HttpStatus.NO_CONTENT);
+        }
+
+        return ResponseEntity.ok(tracks);
+
+    }
+
+
+
 }

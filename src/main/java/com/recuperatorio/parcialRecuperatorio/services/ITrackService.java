@@ -1,6 +1,7 @@
 package com.recuperatorio.parcialRecuperatorio.services;
 
 import com.recuperatorio.parcialRecuperatorio.models.DTOS.TrackDTO;
+import com.recuperatorio.parcialRecuperatorio.models.DTOS.TrackFiltradoDTO;
 import com.recuperatorio.parcialRecuperatorio.models.Track;
 
 import java.util.List;
@@ -17,5 +18,5 @@ public interface ITrackService {
 
     Track findById(int id);
 
-
+    List<TrackFiltradoDTO> getFiltrados(int id);
 }
